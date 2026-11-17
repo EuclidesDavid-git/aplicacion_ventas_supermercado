@@ -1,0 +1,424 @@
+/* =====================================================================
+   Supermercado POS · Hoja de estilos
+   Basada en la Guía de estilos del DERS (Grupo 5):
+   paleta verde oscuro / dorado / crema, Poppins + Inter + IBM Plex Sans,
+   íconos Lucide (trazo 1.75 px) y componentes con variantes de estado.
+   ===================================================================== */
+
+/* ---------- 1. Tokens de diseño ---------- */
+:root {
+    /* Colores de marca */
+    --verde:        #174A35;   /* menú lateral, encabezados de tabla, botones importantes */
+    --dorado:       #D6A84F;   /* ofertas y botón Cobrar (siempre con texto verde) */
+    --crema:        #F7F2E8;   /* fondo de pantallas */
+    --blanco:       #FFFFFF;   /* tarjetas, campos y barra superior */
+
+    /* Colores funcionales */
+    --tinta:        #1F2933;   /* texto principal */
+    --rojo:         #C62828;   /* errores, cancelaciones y eliminar */
+    --exito:        #2E7D4F;   /* venta pagada, entrega completada */
+    --aviso:        #9A6412;   /* stock bajo, pedido en alistamiento */
+    --borde:        #DDD6C4;   /* líneas de tarjetas y tablas */
+    --borde-campo:  #8A8573;   /* bordes de campos de formulario */
+
+    /* Fondos suaves derivados para alertas y estados */
+    --rojo-suave:   #FBEAEA;
+    --exito-suave:  #E8F3EC;
+    --aviso-suave:  #FBF3E4;
+    --texto-suave:  #5B6470;
+
+    /* Tipografía */
+    --fuente-titulo: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --fuente-cuerpo: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --fuente-cifras: 'IBM Plex Sans', 'Inter', system-ui, sans-serif;
+
+    /* Forma */
+    --radio:        14px;
+    --radio-campo:  10px;
+    --sombra:       0 1px 2px rgba(23, 74, 53, .06), 0 4px 12px rgba(23, 74, 53, .06);
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--tinta);
+    font-family: var(--fuente-cuerpo);
+    font-size: 16px;
+    line-height: 24px;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+a { color: var(--verde); }
+
+.icono { flex: none; display: inline-block; vertical-align: middle; }
+
+:focus-visible {
+    outline: 3px solid var(--dorado);
+    outline-offset: 2px;
+}
+
+/* Escala tipográfica del DERS */
+.titulo-1 { font: 600 32px/40px var(--fuente-titulo); color: var(--verde); }
+.titulo-2 { font: 600 24px/32px var(--fuente-titulo); color: var(--tinta); }
+.titulo-3 { font: 600 18px/24px var(--fuente-titulo); color: var(--tinta); }
+.texto-pequeno { font: 400 14px/20px var(--fuente-cuerpo); }
+.etiqueta      { font: 500 13px/16px var(--fuente-cuerpo); }
+.texto-suave   { color: var(--texto-suave); }
+.cifras        { font-family: var(--fuente-cifras); font-variant-numeric: tabular-nums; }
+
+/* ---------- 3. Componentes ---------- */
+
+/* Logo (cuadro redondeado con ícono) */
+.logo {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--verde);
+    color: var(--blanco);
+}
+.logo--dorado { background: var(--dorado); color: var(--verde); }   /* dorado: texto verde, nunca blanco */
+.logo--grande { width: 56px; height: 56px; border-radius: 14px; }
+
+/* Tarjetas: fondo blanco, borde #DDD6C4, radio 14 */
+.tarjeta {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 24px;
+}
+
+/* Botones: primario, acento, outline, peligro y deshabilitado; tamaños 32/40/48 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    border: 2px solid transparent;
+    border-radius: var(--radio-campo);
+    font: 600 15px/1 var(--fuente-titulo);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s, transform .05s;
+}
+.btn:active:not(:disabled) { transform: translateY(1px); }
+
+.btn--pequeno { height: 32px; padding: 0 12px; font-size: 14px; }
+.btn--grande  { height: 48px; padding: 0 24px; font-size: 16px; }
+.btn--completo { width: 100%; }
+
+.btn--primario { background: var(--verde); color: var(--blanco); }
+.btn--primario:hover:not(:disabled) { background: #0F3524; }
+
+.btn--acento { background: var(--dorado); color: var(--verde); }   /* exclusivo de "Cobrar" */
+.btn--acento:hover:not(:disabled) { background: #C9992F; }
+
+.btn--outline { background: var(--blanco); color: var(--verde); border-color: var(--verde); }
+.btn--outline:hover:not(:disabled) { background: var(--crema); }
+
+.btn--peligro { background: var(--rojo); color: var(--blanco); }
+.btn--peligro:hover:not(:disabled) { background: #A82020; }
+
+.btn:disabled { background: var(--borde); color: #7A7566; cursor: not-allowed; }
+
+/* Campos de formulario: defecto, foco, error y búsqueda */
+.formulario { display: grid; gap: 20px; margin-top: 24px; }
+
+.campo { display: grid; gap: 6px; }
+
+.campo__etiqueta { font: 600 13px/16px var(--fuente-cuerpo); color: var(--tinta); }
+
+.campo__control {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1.5px solid var(--borde-campo);
+    border-radius: var(--radio-campo);
+    background: var(--blanco);
+    color: var(--tinta);
+    font: 400 16px/24px var(--fuente-cuerpo);
+}
+.campo__control::placeholder { color: #8A8573; }
+.campo__control:focus {
+    outline: none;
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(23, 74, 53, .18);
+}
+.campo__control--error { border-color: var(--rojo); }
+.campo__control--error:focus { border-color: var(--rojo); box-shadow: 0 0 0 3px rgba(198, 40, 40, .18); }
+
+.campo__ayuda { font: 400 13px/16px var(--fuente-cuerpo); color: var(--texto-suave); }
+
+.campo__mensaje-error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--rojo);
+    font: 500 14px/20px var(--fuente-cuerpo);
+}
+
+/* Alertas: siempre con ícono y texto, no solo color */
+.alerta {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 12px 14px;
+    border: 1px solid;
+    border-radius: var(--radio-campo);
+    font: 400 14px/20px var(--fuente-cuerpo);
+}
+.alerta .icono { margin-top: 1px; }
+.alerta--aviso { background: var(--aviso-suave); border-color: #E6CFA3; color: #6E4609; }
+.alerta--aviso .icono { color: var(--aviso); }
+.alerta--error { background: var(--rojo-suave);  border-color: #E8B4B4; color: #8E1F1F; }
+.alerta--error .icono { color: var(--rojo); }
+.alerta--exito { background: var(--exito-suave); border-color: #B7D8C3; color: #1E5A38; }
+.alerta--exito .icono { color: var(--exito); }
+
+/* Badges de estado */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font: 500 13px/20px var(--fuente-cuerpo);
+}
+.badge--exito  { background: var(--exito-suave); color: var(--exito); }
+.badge--aviso  { background: var(--aviso-suave); color: var(--aviso); }
+.badge--error  { background: var(--rojo-suave);  color: var(--rojo); }
+.badge--neutro { background: #ECE8DC; color: var(--texto-suave); }
+
+/* ---------- 4. Pantalla de inicio de sesión (mockup "Desktop - 1" de Figma) ---------- */
+.login {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+/* Panel verde de la izquierda: marca arriba, mensaje al centro, pie abajo */
+.login__marca {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 56px 64px 48px;
+    background: var(--verde);
+    color: var(--blanco);
+}
+.login__marca-superior { display: flex; align-items: center; gap: 12px; }
+.login__marca-superior-nombre { font: 600 18px/28px var(--fuente-titulo); }
+
+.login__marca-central { display: grid; gap: 20px; max-width: 480px; }
+.login__marca-icono {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--dorado);
+    color: var(--verde);
+}
+.login__marca-titulo { font: 600 32px/40px var(--fuente-titulo); }
+.login__marca-texto  { max-width: 450px; color: #D9E6DE; font: 400 16px/24px var(--fuente-cuerpo); }
+.login__marca-pie    { color: #A9C2B5; font: 400 14px/20px var(--fuente-cuerpo); }
+
+/* Zona crema de la derecha: tarjeta del formulario y accesos de prueba */
+.login__zona-formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(32px, 15.8vh, 142px) 24px 32px;
+}
+.login__contenido { display: grid; gap: 24px; width: 100%; max-width: 420px; }
+
+.login__tarjeta { padding: 32px; }
+.login__subtitulo { margin-top: 6px; }
+.login__tarjeta .formulario { margin-top: 28px; }
+
+/* Campo con botón para mostrar/ocultar la contraseña */
+.campo__envoltorio { position: relative; }
+.campo__envoltorio .campo__control { padding-right: 52px; }
+.campo__ojo {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--texto-suave);
+    cursor: pointer;
+}
+.campo__ojo:hover { background: var(--crema); color: var(--tinta); }
+.campo__ojo[hidden], .campo__ojo [hidden] { display: none; }
+
+/* Accesos rápidos de prueba (solo en entorno de desarrollo) */
+.accesos-prueba { display: grid; gap: 10px; }
+.accesos-prueba__titulo { font: 400 14px/20px var(--fuente-cuerpo); color: var(--texto-suave); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+    height: 36px;
+    padding: 0 16px;
+    border: 1.5px solid var(--borde);
+    border-radius: 999px;
+    background: var(--blanco);
+    color: var(--tinta);
+    font: 500 14px/20px var(--fuente-cuerpo);
+    cursor: pointer;
+}
+.chip:hover { border-color: var(--verde); }
+
+.logo--circulo { border-radius: 50%; }
+
+/* Marca compacta que reemplaza al panel verde en pantallas angostas */
+.login__marca-movil { display: none; align-items: center; gap: 12px; margin-bottom: 24px; }
+.login__marca-movil-nombre { font: 600 18px/24px var(--fuente-titulo); color: var(--verde); }
+
+/* ---------- 5. Estructura de la aplicación (menú lateral + barra superior) ---------- */
+.app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 12px;
+    background: var(--verde);
+    color: var(--blanco);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.menu-lateral__marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 8px 16px;
+    color: var(--blanco);
+    text-decoration: none;
+}
+.menu-lateral__nombre { font: 600 16px/20px var(--fuente-titulo); }
+
+.menu-lateral__nav { display: grid; gap: 4px; flex: 1; align-content: start; }
+
+.menu-lateral__enlace {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--blanco);
+    font: 500 15px/20px var(--fuente-cuerpo);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+.menu-lateral__enlace:hover { background: rgba(255, 255, 255, .1); }
+.menu-lateral__enlace--activo,
+.menu-lateral__enlace--activo:hover { background: var(--crema); color: var(--verde); }   /* activo: fondo crema, texto verde */
+
+.menu-lateral__salir { margin: 0; border-top: 1px solid rgba(255, 255, 255, .18); padding-top: 12px; }
+
+.app__principal { display: flex; flex-direction: column; min-width: 0; }
+
+.barra-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+    padding: 0 24px;
+    background: var(--blanco);
+    border-bottom: 1px solid var(--borde);
+}
+
+.migas { display: flex; align-items: center; gap: 8px; font: 400 14px/20px var(--fuente-cuerpo); color: var(--texto-suave); }
+.migas__actual { color: var(--tinta); font-weight: 600; }
+
+.barra-superior__usuario { display: flex; align-items: center; gap: 12px; }
+.barra-superior__datos { display: grid; text-align: right; }
+.barra-superior__datos strong { font: 600 14px/20px var(--fuente-cuerpo); }
+.barra-superior__datos span { font: 400 13px/16px var(--fuente-cuerpo); color: var(--texto-suave); }
+
+.avatar {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--verde);
+    color: var(--blanco);
+    font: 600 13px/1 var(--fuente-titulo);
+}
+
+.contenido { flex: 1; padding: 24px; }
+
+/* Rejilla de módulos en la pantalla de inicio */
+.rejilla-modulos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.tarjeta--enlace {
+    display: grid;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+    transition: box-shadow .15s, border-color .15s;
+}
+.tarjeta--enlace:hover { border-color: var(--verde); box-shadow: var(--sombra); }
+.tarjeta__icono {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--crema);
+    color: var(--verde);
+}
+
+/* ---------- 6. Adaptable (computador y tableta, RNF-02) ---------- */
+@media (max-width: 960px) {
+    /* Menú lateral compacto: solo íconos */
+    .app { grid-template-columns: 72px 1fr; }
+    .menu-lateral { padding: 16px 8px; }
+    .menu-lateral__nombre,
+    .menu-lateral__enlace span { display: none; }
+    .menu-lateral__marca { justify-content: center; padding: 4px 0 16px; }
+    .menu-lateral__enlace { justify-content: center; padding: 12px 0; }
+}
+
+@media (max-width: 800px) {
+    /* Login: se oculta el panel verde y la marca pasa a la tarjeta */
+    .login { grid-template-columns: 1fr; }
+    .login__marca { display: none; }
+    .login__marca-movil { display: flex; }
+    .login__zona-formulario { padding-top: 32px; }
+    .login__tarjeta { padding: 24px 20px; }
+    .titulo-1 { font-size: 26px; line-height: 34px; }
+    .barra-superior__datos { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

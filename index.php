@@ -5,14 +5,14 @@
  * Las URL tienen la forma:   index.php?ruta=controlador/accion
  *   ?ruta=productos/listar   ->  ProductoController::listar()  (cuando exista)
  *
- * Mientras no esté listo el login, la ruta por defecto es la página de prueba
- * de conexión. Cuando exista AuthController, cambiar RUTA_POR_DEFECTO a 'auth/login'.
+ * La ruta por defecto es 'inicio': si no hay sesión, redirige al login
+ * (auth/login). La ruta 'prueba' sigue disponible para verificar la conexión.
  */
 
 require_once __DIR__ . '/config/config.php';
 require_once __DIR__ . '/config/database.php';
 
-const RUTA_POR_DEFECTO = 'prueba';
+const RUTA_POR_DEFECTO = 'inicio';
 
 // ---------------------------------------------------------------------
 // Autocarga de clases: busca en controllers, models y helpers
