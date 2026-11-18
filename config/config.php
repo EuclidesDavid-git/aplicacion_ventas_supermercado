@@ -24,15 +24,15 @@ date_default_timezone_set('America/Bogota');
 // Rutas
 // ---------------------------------------------------------------------
 define('RUTA_RAIZ', dirname(__DIR__));                       // carpeta del proyecto en disco
-define('URL_BASE', 'http://localhost/Sistema_de_ventas_web_supermercado/');
+define('URL_BASE', '/');
 
 // ---------------------------------------------------------------------
 // Base de datos (XAMPP por defecto: usuario root y sin contraseña)
 // ---------------------------------------------------------------------
-define('DB_HOST', 'localhost');
-define('DB_NOMBRE', 'supermercado_db');
-define('DB_USUARIO', 'root');
-define('DB_CLAVE', '');
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NOMBRE', getenv('DB_NOMBRE') ?: 'supermercado_db');
+define('DB_USUARIO', getenv('DB_USUARIO') ?: 'root');
+define('DB_CLAVE', getenv('DB_CLAVE') ?: '');
 define('DB_CHARSET', 'utf8mb4');
 
 // ---------------------------------------------------------------------
